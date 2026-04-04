@@ -4,12 +4,12 @@ const adminMiddleware = async (req, res, next) => {
   try {
     const user = await User.findById(req.userId);
 
-    // ✅ Check user exists
+    //  Check user exists
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // ✅ Check admin role
+    //  Check admin role
     if (user.role !== "admin") {
       return res.status(403).json({ message: "Admin access only" });
     }
