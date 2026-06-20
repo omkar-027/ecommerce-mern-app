@@ -1,7 +1,6 @@
 import API from "../services/api";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
+import { useNavigate } from "react-router-dom";
 
 function AdminDashboard() {
   const [products, setProducts] = useState([]);

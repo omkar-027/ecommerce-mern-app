@@ -13,7 +13,7 @@ function AdminAddProduct() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [preview, setPreview] = useState("");
-  const [category, setCategory] = useState("general");
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();

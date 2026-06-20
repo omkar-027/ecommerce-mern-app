@@ -12,22 +12,20 @@ const [price,setPrice] = useState("");
 const [description,setDescription] = useState("");
 
 useEffect(() => {
+  const fetchProduct = async () => {
+    try {
+      const res = await API.get(`/api/products/${id}`);
+      setName(res.data.name);
+      setPrice(res.data.price);
+      setDescription(res.data.description);
+    } catch (error) {
+      console.error("Fetch Error:", error.response?.status);
+      alert("Product not found or invalid ID");
+    }
+  };
   fetchProduct();
-}, [fetchProduct]);
+}, [id]);
 
-const fetchProduct = async () => {
-  try {
-    // 1. Double check this URL. Does it match your Backend route?
-    const res = await API.get(`/api/products/${id}`); 
-    
-    setName(res.data.name);
-    setPrice(res.data.price);
-    setDescription(res.data.description);
-  } catch (error) {
-    console.error("Fetch Error:", error.response?.status); // Should show 404
-    alert("Product not found or invalid ID");
-  }
-};
 const updateProduct = async (e) => {
   e.preventDefault();
 

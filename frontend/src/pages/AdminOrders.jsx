@@ -1,6 +1,5 @@
 import API from "../services/api";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 function AdminOrders() {
 
