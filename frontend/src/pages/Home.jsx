@@ -64,7 +64,7 @@ function Home() {
           ? { ...item, quantity: item.quantity + 1 }
           : item
       );
-      showToast` ${product.name} quantity updated!`;
+      showToast(`${product.name} quantity updated!`);
     } else {
       updated = [...cart, { ...product, quantity: 1 }];
       showToast(`🛒 ${product.name} added to cart!`);
