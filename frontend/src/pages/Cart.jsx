@@ -1,3 +1,4 @@
+import API from "../services/api";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -118,3 +119,4 @@ function Cart() {
 }
 
 export default Cart;
+

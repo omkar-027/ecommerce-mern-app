@@ -1,5 +1,5 @@
+import API from "../services/api";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 function MyOrders() {
 
@@ -14,8 +14,8 @@ function MyOrders() {
   const fetchOrders = async (page) => {
     try {
 
-      const res = await axios.get(
-        `http://localhost:5000/api/orders/my-orders?page=${page}`,
+      const res = await API.get(
+        `/api/orders/my-orders?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -143,3 +143,4 @@ function MyOrders() {
 }
 
 export default MyOrders;
+

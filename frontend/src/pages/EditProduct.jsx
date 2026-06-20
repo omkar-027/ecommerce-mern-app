@@ -1,5 +1,5 @@
+import API from "../services/api";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
 function EditProduct(){
@@ -20,7 +20,7 @@ fetchProduct();
 const fetchProduct = async () => {
   try {
     // 1. Double check this URL. Does it match your Backend route?
-    const res = await axios.get(`http://localhost:5000/api/products/${id}`); 
+    const res = await API.get(`/api/products/${id}`); 
     
     setName(res.data.name);
     setPrice(res.data.price);
@@ -36,8 +36,8 @@ const updateProduct = async (e) => {
   const token = localStorage.getItem("token");
 
   try {
-    await axios.put(
-      `http://localhost:5000/api/products/${id}`,
+    await API.put(
+      `/api/products/${id}`,
       {
         name,
         price,
@@ -105,3 +105,4 @@ onChange={(e)=>setDescription(e.target.value)}
 }
 
 export default EditProduct;
+

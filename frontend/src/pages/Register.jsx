@@ -1,5 +1,5 @@
+import API from "../services/api";
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
@@ -22,8 +22,8 @@ function Register() {
     }
 
     try {
-      await axios.post(
-        "http://localhost:5000/api/users/register",
+      await API.post(
+        "/api/users/register",
         { name, email, password }
       );
 
@@ -208,3 +208,4 @@ const styles = {
 };
 
 export default Register;
+

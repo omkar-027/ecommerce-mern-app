@@ -13,9 +13,6 @@ import MyOrders from "./pages/MyOrder";
 import AdminOrders from "./pages/AdminOrders";
 
 
-
-
-
 function App() {
   return (
     <Router>

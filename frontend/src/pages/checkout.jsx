@@ -1,3 +1,4 @@
+import API from "../services/api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -35,8 +36,8 @@ function Checkout() {
       }
 
       // Step 1 - Create Razorpay order
-      const { data } = await axios.post(
-        "http://localhost:5000/api/orders/create-razorpay-order",
+      const { data } = await API.post(
+        "/api/orders/create-razorpay-order",
         { totalPrice },
         {
           headers: {
@@ -57,8 +58,8 @@ function Checkout() {
         handler: async function (response) {
 
           // Step 3 - Payment success - save order
-          await axios.post(
-            "http://localhost:5000/api/orders",
+          await API.post(
+            "/api/orders",
             {
               products: cart,
               totalPrice,
@@ -160,3 +161,4 @@ function Checkout() {
 }
 
 export default Checkout;
+

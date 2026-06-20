@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 function AdminAddProduct() {
@@ -24,8 +24,8 @@ function AdminAddProduct() {
 
       const token = localStorage.getItem("token");
 
-      await axios.post(
-        "http://localhost:5000/api/products/add",
+      await API.post(
+        "/api/products/add",
         { name, price, image, description },
         {
           headers: {
@@ -300,3 +300,4 @@ const styles = {
 };
 
 export default AdminAddProduct;
+

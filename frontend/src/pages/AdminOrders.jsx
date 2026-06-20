@@ -1,3 +1,4 @@
+import API from "../services/api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -12,8 +13,8 @@ function AdminOrders() {
   const fetchOrders = async () => {
     try {
 
-      const res = await axios.get(
-        "http://localhost:5000/api/orders/all",
+      const res = await API.get(
+        "/api/orders/all",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -31,8 +32,8 @@ function AdminOrders() {
   const updateStatus = async (orderId, status) => {
     try {
 
-      await axios.put(
-        `http://localhost:5000/api/orders/${orderId}/status`,
+      await API.put(
+        `/api/orders/${orderId}/status`,
         { status },
         {
           headers: {
@@ -129,3 +130,4 @@ function AdminOrders() {
 }
 
 export default AdminOrders;
+

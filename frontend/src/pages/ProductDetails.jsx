@@ -1,3 +1,4 @@
+import API from "../services/api";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -10,7 +11,7 @@ function ProductDetails() {
   useEffect(() => {
 
     axios
-      .get(`http://localhost:5000/api/products/${id}`)
+      .get(`/api/products/${id}`)
       .then((res) => {
         setProduct(res.data);
       })
@@ -54,3 +55,4 @@ function ProductDetails() {
 }
 
 export default ProductDetails;
+

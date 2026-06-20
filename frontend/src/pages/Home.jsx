@@ -1,3 +1,4 @@
+import API from "../services/api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -27,7 +28,7 @@ function Home() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/api/products?search=${search}`)
+      .get(`/api/products?search=${search}`)
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
@@ -371,3 +372,4 @@ styleTag.innerHTML = `
 document.head.appendChild(styleTag);
 
 export default Home;
+

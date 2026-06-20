@@ -1,3 +1,4 @@
+import API from "../services/api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
@@ -12,7 +13,7 @@ function AdminDashboard() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await API.get("/api/products");
       setProducts(res.data);
     } catch (err) {
       console.error("Failed to fetch products", err);
@@ -25,7 +26,7 @@ function AdminDashboard() {
     if (!window.confirm("Are you sure?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/products/${id}`, {
+      await API.delete(`/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert( "Deleted! ");
@@ -134,3 +135,4 @@ const styles = {
 };
 
 export default AdminDashboard;
+
