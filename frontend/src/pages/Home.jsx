@@ -27,7 +27,7 @@ function Home() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`/api/products?search=${search}`)
+     .get(`https://ecommerce-mern-app-zigw.onrender.com/api/products?search=${search}`)
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
@@ -133,7 +133,7 @@ function Home() {
           </div>
         ) : (
           <div style={styles.grid}>
-            {products.map((product) => (
+              {(products || []).map((product) => (
               <div key={product._id} style={styles.card}>
 
                 {/* Product Image */}
