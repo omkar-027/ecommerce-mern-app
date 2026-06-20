@@ -11,11 +11,9 @@ const [name,setName] = useState("");
 const [price,setPrice] = useState("");
 const [description,setDescription] = useState("");
 
-useEffect(()=>{
-
-fetchProduct();
-
-},[]);
+useEffect(() => {
+  fetchProduct();
+}, [fetchProduct]);
 
 const fetchProduct = async () => {
   try {
