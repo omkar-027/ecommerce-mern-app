@@ -3,14 +3,9 @@ import Product from "../models/Product.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import adminMiddleware from "../middleware/adminMiddleware.js";
 
-
 const router = express.Router();
 
-
-// Get all products (with search)
-// Get all products
-// This MUST match the Frontend call exactly
-// GET all products - MUST be first
+// GET all products
 router.get("/", async (req, res) => {
   try {
     const search = req.query.search || "";
@@ -27,7 +22,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET single product - MUST be after /
+// GET single product
 router.get("/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -37,80 +32,34 @@ router.get("/:id", async (req, res) => {
     res.status(400).json({ message: "Invalid ID format" });
   }
 });
+
 // Admin Add Product
-router.post(
-  "/add",
-  authMiddleware,
-  adminMiddleware,
-  async (req, res) => {
-
-    const { name, price, image, description } = req.body;
-
-    const product = new Product({
-      name,
-      price,
-      image,
-      description
-    });
-
-    const savedProduct = await product.save();
-
-    res.json(savedProduct);
-
+router.post("/add", authMiddleware, adminMiddleware, async (req, res) => {
+  const { name, price, image, description } = req.body;
+  const product = new Product({ name, price, image, description });
+  const savedProduct = await product.save();
+  res.json(savedProduct);
 });
 
-router.delete(
-"/:id",
-authMiddleware,
-adminMiddleware,
-async (req,res)=>{
-
-try{
-
-await Product.findByIdAndDelete(req.params.id);
-
-res.json({message:"Product deleted"});
-
-}catch(error){
-res.status(500).json({message:error.message});
-}
-
-});
-
-router.put("/:id", authMiddleware, adminMiddleware, async (req,res)=>{
-
-const { name,price,description } = req.body;
-
-const product = await Product.findByIdAndUpdate(
-
-req.params.id,
-{ name,price,description },
-{ new:true }
-
-);
-
-res.json(product);
-
-});
-
-// Get single product
-router.get("/", async (req, res) => {
+// Admin Delete Product
+router.delete("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   try {
-
-    const search = req.query.search || "";
-
-    const products = await Product.find({
-      $or: [
-        { name: { $regex: search, $options: "i" } },
-        { category: { $regex: search, $options: "i" } },
-        { description: { $regex: search, $options: "i" } }
-      ]
-    });
-
-    res.json(products);
-
+    await Product.findByIdAndDelete(req.params.id);
+    res.json({ message: "Product deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
+// Admin Update Product
+router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
+  const { name, price, description } = req.body;
+  const product = await Product.findByIdAndUpdate(
+    req.params.id,
+    { name, price, description },
+    { new: true }
+  );
+  res.json(product);
+});
+
 export default router;
