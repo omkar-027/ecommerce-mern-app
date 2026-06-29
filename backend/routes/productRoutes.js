@@ -10,19 +10,33 @@ const router = express.Router();
 // Get all products (with search)
 // Get all products
 // This MUST match the Frontend call exactly
-router.get("/:id", async (req, res) => {
+// GET all products - MUST be first
+router.get("/", async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    res.json(product);
+    const search = req.query.search || "";
+    const products = await Product.find({
+      $or: [
+        { name: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } }
+      ]
+    });
+    res.json(products);
   } catch (error) {
-    // This catches "CastError" if the ID is not a valid MongoDB ObjectId format
-    res.status(400).json({ message: "Invalid ID format" });
+    res.status(500).json({ message: error.message });
   }
 });
 
+// GET single product - MUST be after /
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    res.json(product);
+  } catch (error) {
+    res.status(400).json({ message: "Invalid ID format" });
+  }
+});
 // Admin Add Product
 router.post(
   "/add",
